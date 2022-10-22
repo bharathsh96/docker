@@ -8,9 +8,11 @@ RUN apt-get update -y
 WORKDIR hello-world-war
 RUN apt-get install maven -y
 RUN mvn clean package
+
 FROM tomcat:latest
 COPY --from=build ./hello-world-war/target/hello-world-war-1.0.0.war ./webapps
-CMD ["service","tomcat"]
+CMD ["service","tomcat"] 
+
 RUN apt-get update -y
 RUN ln -s /opt/apache-tomcat/bin/startup.sh /usr/local/bin/tomcatup
 RUN ln -s /opt/apache-tomcat/bin/shutdown.sh /usr/local/bin/tomcatdown
